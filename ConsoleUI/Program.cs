@@ -18,10 +18,11 @@ namespace ConsoleUI
 
             EfCarDal efCarDal = new EfCarDal();
             Car car = new Car();
-            car.ModelName = "s";
-            car.ColourId = 4;
+            car.Id = 7;
             car.BrandId = 5;
-            car.DailyPrice = 0;
+            car.ColourId = 4;
+            car.ModelName = "Rsx";
+            car.DailyPrice = 20000;
             car.ModelYear = "2020";
             efCarDal.Add(car);
 
