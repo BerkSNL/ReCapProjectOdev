@@ -23,12 +23,12 @@ namespace Business.Concrete
 
         public List<Car> GetAllByBrand(int brandId)
         {
-            return _iCarDal.GetAll(c => c.BrandId == brandId);
+            return _iCarDal.GetAll(c => c.Id == brandId);
         }
 
         public List<Car> GetAllByColour(int colourId)
         {
-            return _iCarDal.GetAll(c => c.ColourId == colourId);
+            return _iCarDal.GetAll(c => c.Id == colourId);
         }
 
     }
