@@ -21,6 +21,18 @@ namespace ConsoleUI
             car.Id = 7;
             car.ModelName = "Rsx";
             car.ColourId = 4;
+=========
+            car.Id = 7;
+>>>>>>>>> Temporary merge branch 2
+=========
+            car.Id = 7;
+>>>>>>>>> Temporary merge branch 2
+=========
+            car.Id = 7;
+>>>>>>>>> Temporary merge branch 2
+=========
+            car.Id = 7;
+>>>>>>>>> Temporary merge branch 2
             car.BrandId = 5;
             car.DailyPrice = 20000;
             car.ModelYear = "2020";
