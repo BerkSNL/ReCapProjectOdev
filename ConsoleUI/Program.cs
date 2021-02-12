@@ -12,6 +12,8 @@ namespace ConsoleUI
             //Car Crud Ops
             //CarAllTest();
             //CarByIdTest();
+            //CarByBrandTest();
+            //CarByColourTest();
             //CarAddTest();
             //CarDeleteTest();
             //CarUpdateTest();
@@ -26,12 +28,52 @@ namespace ConsoleUI
             //ColourAllTest();
             //ColourAddTest();
             //ColourDeleteTest();
-            //ColourUpdateTest();
+            ColourUpdateTest();
 
+            //DtoTest();
+
+        }
+
+        private static void CarByColourTest()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetCarDetails())
+            var result = carManager.GetAllByColourId(1);
+            foreach (var car in result.Data)
             {
-                Console.WriteLine($"{car.BrandName} {car.ModelName} / Colour: {car.ColourName} / Daily Price: {car.DailyPrice}");
+                Console.WriteLine($"{car.ModelName} / Colour ID: {car.ColourId}");
+            }
+            Console.WriteLine();
+            Console.WriteLine(result.Message);
+        }
+
+        private static void CarByBrandTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            var result = carManager.GetAllByBrandId(1);
+            foreach (var car in result.Data)
+            {
+                Console.WriteLine($"{car.ModelName} / Brand ID: { car.Id}");
+            }
+            Console.WriteLine();
+            Console.WriteLine(result.Message);
+        }
+
+        private static void DtoTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            var result = carManager.GetCarDetails();
+            if (result.Success == true)
+            {
+                foreach (var car in carManager.GetCarDetails().Data)
+                {
+                    Console.WriteLine($"{car.BrandName} {car.ModelName} / Colour: {car.ColourName} / Daily Price: {car.DailyPrice}");
+                }
+                Console.WriteLine();
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
 
@@ -45,7 +87,9 @@ namespace ConsoleUI
             ColourAllTest();
             Console.WriteLine();
             colour.ColourName = "Gray";
-            colourManager.Update(colour);
+            var result = colourManager.Update(colour);
+            Console.WriteLine();
+            Console.WriteLine(result.Message);
             Console.WriteLine();
             Console.WriteLine("After the Update");
             Console.WriteLine();
@@ -56,15 +100,16 @@ namespace ConsoleUI
         {
             ColourManager colourManager = new ColourManager(new EfColourDal());
             Colour colour = new Colour();
-            colour.Id = 7;
+            colour.Id = 8;
             colour.ColourName = "Green";
             colourManager.Add(colour);
             Console.WriteLine("Duplicate added for test");
             Console.WriteLine();
             ColourAllTest();
             Console.WriteLine();
+            var result = colourManager.Delete(colour);
+            Console.WriteLine(result.Message);
             Console.WriteLine();
-            colourManager.Delete(colour);
             Console.WriteLine("Duplicate removed");
             Console.WriteLine();
             ColourAllTest();
@@ -73,10 +118,12 @@ namespace ConsoleUI
         private static void ColourAddTest()
         {
             Colour colour = new Colour();
-            colour.Id = 6;
-            colour.ColourName = "Green";
+            colour.Id = 7;
+            colour.ColourName = "Purple";
             ColourManager colourManager = new ColourManager(new EfColourDal());
-            colourManager.Add(colour);
+            var result = colourManager.Add(colour);
+            Console.WriteLine(result.Message);
+            Console.WriteLine();
             ColourAllTest();
         }
 
@@ -84,16 +131,18 @@ namespace ConsoleUI
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             Brand brand = new Brand();
-            brand.Id = 5;
+            brand.Id = 6;
             brand.BrandName = "Volvo";
             brandManager.Add(brand);
             Console.WriteLine("Duplicate added for test");
             Console.WriteLine();
             BrandAllTest();
             Console.WriteLine();
+            var result = brandManager.Delete(brand);
+            Console.WriteLine(result.Message);
+            Console.WriteLine();
             Console.WriteLine("Duplicate removed");
             Console.WriteLine();
-            brandManager.Delete(brand);
             BrandAllTest();
         }
 
@@ -106,8 +155,10 @@ namespace ConsoleUI
             Console.WriteLine();
             BrandAllTest();
             Console.WriteLine();
-            brand.BrandName = "Jeep";
-            brandManager.Update(brand);
+            brand.BrandName = "Volvo";
+            var result = brandManager.Update(brand);
+            Console.WriteLine();
+            Console.WriteLine(result.Message);
             Console.WriteLine();
             Console.WriteLine("After the Update");
             Console.WriteLine();
@@ -118,9 +169,11 @@ namespace ConsoleUI
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             Brand brand = new Brand();
-            brand.Id = 4;
-            brand.BrandName = "Volvo";
-            brandManager.Add(brand);
+            brand.Id = 5;
+            brand.BrandName = "Volkswagen";
+            var result = brandManager.Add(brand);
+            Console.WriteLine(result.Message);
+            Console.WriteLine();
             BrandAllTest();
         }
 
@@ -128,7 +181,7 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
             var result = carManager.GetById(1);
-            Console.WriteLine(result.ModelName);
+            Console.WriteLine(result.Data.ModelName);
         }
 
         private static void CarUpdateTest()
@@ -138,91 +191,116 @@ namespace ConsoleUI
             car.ModelName = "Explorer";
             car.ModelYear = "2020";
             car.BrandId = 2;
-            car.ColourId = 2;
-            car.Description = "SUV";
-            CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var vehicle in carManager.GetAll())
-            {
-                Console.WriteLine(vehicle.ModelName + " " + vehicle.ModelYear);
-            }
-            Console.WriteLine();
-            Console.WriteLine("Before the Update");
-            car.ModelName = "Kuga";
-            car.ModelYear = "2021";
-            car.BrandId = 2;
             car.ColourId = 3;
             car.Description = "SUV";
+            car.DailyPrice = 300;
+            CarManager carManager = new CarManager(new EfCarDal());
+            Console.WriteLine("Before the Update");
+            foreach (var vehicle in carManager.GetAll().Data)
+            {
+                Console.WriteLine(vehicle.ModelName + " " + vehicle.ModelYear + " " + vehicle.DailyPrice);
+            }
             Console.WriteLine();
-            carManager.Update(car);
+            Console.WriteLine();
+            var result = carManager.Update(car);
             Console.WriteLine("After the Update");
             Console.WriteLine();
-            foreach (var vehicle in carManager.GetAll())
+            foreach (var vehicle in carManager.GetAll().Data)
             {
-                Console.WriteLine(vehicle.ModelName + " " + vehicle.ModelYear);
+                Console.WriteLine(vehicle.ModelName + " " + vehicle.ModelYear + " " + vehicle.DailyPrice);
+            }
+            Console.WriteLine();
+            if (result.Success == true)
+            {
+
+                Console.WriteLine(car.Id + ". " + result.Message);
             }
         }
 
         private static void CarDeleteTest()
         {
             Car car = new Car();
-            car.Id = 3;
+            car.Id = 6;
             car.ModelName = "Explorer";
             car.ModelYear = "2020";
             car.BrandId = 2;
             car.ColourId = 2;
             car.Description = "SUV";
+            car.DailyPrice = 300;
             CarManager carManager = new CarManager(new EfCarDal());
             carManager.Add(car);
             Console.WriteLine("Duplicate added for test");
             Console.WriteLine();
             CarAllTest();
-            carManager.Delete(car);
+            var result = carManager.Delete(car);
             Console.WriteLine();
+            if (result.Success == true)
+            {
+                Console.WriteLine(result.Message);
+            }
             Console.WriteLine("Duplicate removed");
             Console.WriteLine();
             CarAllTest();
+
         }
 
         private static void CarAddTest()
         {
             Car car = new Car();
-            car.Id = 2;
-            car.ModelName = "Explorer";
+            car.Id = 5;
+            car.ModelName = "Focus";
             car.ModelYear = "2020";
             car.BrandId = 2;
             car.ColourId = 2;
-            car.Description = "SUV";
-            car.DailyPrice = 200;
+            car.Description = "Hatchback";
+            car.DailyPrice = 100;
             CarManager carManager = new CarManager(new EfCarDal());
-            carManager.Add(car);
-            CarAllTest();
+            
+            var result = carManager.Add(car);
+            if (result.Success == true)
+            {
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
 
         private static void ColourAllTest()
         {
             ColourManager colourManager = new ColourManager(new EfColourDal());
-            foreach (var colour in colourManager.GetAll())
+            var result = colourManager.GetAll().Data;
+            foreach (var colour in result)
             {
                 Console.WriteLine(colour.ColourName);
             }
+            Console.WriteLine();
+            Console.WriteLine(colourManager.GetAll().Message);
         }
 
         private static void BrandAllTest()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+            var result = brandManager.GetAll().Data;
+            foreach (var brand in result)
             {
                 Console.WriteLine(brand.BrandName);
             }
+            Console.WriteLine();
+            Console.WriteLine(brandManager.GetAll().Message);
         }
 
         private static void CarAllTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetAll())
+            var result = carManager.GetAll().Data;
+            foreach (var car in result)
             {
                 Console.WriteLine(car.ModelName);
             }
+            Console.WriteLine();
+            Console.WriteLine(carManager.GetAll().Message); 
         }
     }
 }
