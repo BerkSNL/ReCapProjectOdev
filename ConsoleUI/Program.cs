@@ -9,28 +9,82 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            //Car Crud Ops
-            //CarAllTest();
-            //CarByIdTest();
-            //CarByBrandTest();
-            //CarByColourTest();
-            //CarAddTest();
-            //CarDeleteTest();
-            //CarUpdateTest();
-
-            //Brand Crud Ops
-            //BrandAllTest();
-            //BrandAddTest();
-            //BrandUpdateTest();
-            //BrandDeleteTest();
-
-            //Colour Crud Ops
-            //ColourAllTest();
-            //ColourAddTest();
-            //ColourDeleteTest();
-            ColourUpdateTest();
-
             //DtoTest();
+
+            UserManager userManager = new UserManager(new EfUserDal());
+            //User user1 = new User();
+            //user1.Id = 1;
+            //user1.Name = "Berk";
+            //user1.Surname = "Şenel";
+            //user1.Email = "Email.com";
+            //user1.Password = "123456789";
+            //var result = userManager.Add(user1);
+            //Console.WriteLine(result.Message);
+            //Console.WriteLine();
+            //foreach (var user in userManager.GetAll().Data)
+            //{
+            //    Console.WriteLine(user.Name + " "+ user.Surname);
+            //}
+            //Console.WriteLine();
+            //Console.WriteLine(userManager.GetAll().Message);
+
+            //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            //string company1 = "First Inc.";
+            //string company2 = "Second Inc.";
+            //Customer customer1 = new Customer();
+            //customer1.Id = 1;
+            //customer1.CompanyName = company1;
+            //customer1.UserId = 1;
+            //Customer customer2 = new Customer();
+            //customer2.Id = 2;
+            //customer2.UserId = 2;
+            //customer2.CompanyName = company1;
+            //Customer customer3 = new Customer();
+            //customer3.Id = 3;
+            //customer3.UserId = 3;
+            //customer3.CompanyName = company2;
+            //Customer customer4 = new Customer();
+            //customer4.Id = 4;
+            //customer4.UserId = 4;
+            //customer4.CompanyName = company2;
+            //var result = customerManager.Add(customer1);
+            //customerManager.Add(customer2);
+            //customerManager.Add(customer3);
+            //customerManager.Add(customer4);
+            //Console.WriteLine(result.Message);
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            //Rental rental1 = new Rental();
+            //rental1.Id = 1;
+            //rental1.CarId = 3;
+            //rental1.CustomerId = 1;
+            //rental1.RentDate = DateTime.Now;
+            //rental1.ReturnDate = DateTime.Now.AddDays(2);
+            //var result = rentalManager.Add(rental1);
+            //if (result.Success == true)
+            //{
+            //    Console.WriteLine(result.Message);
+            //}
+            //else
+            //{
+            //    Console.WriteLine(result.Message);
+            //}
+
+            Rental rental2 = new Rental();
+            rental2.Id = 2;
+            rental2.CarId = 3;
+            rental2.CustomerId = 2;
+            rental2.RentDate = DateTime.Now;
+            rental2.ReturnDate = DateTime.Now.AddDays(2);
+            var result2 = rentalManager.Add(rental2);
+            if (result2.Success == true)
+            {
+                Console.WriteLine(result2.Message);
+            }
+            else
+            {
+                Console.WriteLine(result2.Message);
+            }
 
         }
 
