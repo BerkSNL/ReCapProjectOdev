@@ -54,37 +54,36 @@ namespace ConsoleUI
             //Console.WriteLine(result.Message);
 
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            //Rental rental1 = new Rental();
-            //rental1.Id = 1;
-            //rental1.CarId = 3;
-            //rental1.CustomerId = 1;
-            //rental1.RentDate = DateTime.Now;
-            //rental1.ReturnDate = DateTime.Now.AddDays(2);
-            //var result = rentalManager.Add(rental1);
-            //if (result.Success == true)
-            //{
-            //    Console.WriteLine(result.Message);
-            //}
-            //else
-            //{
-            //    Console.WriteLine(result.Message);
-            //}
-
-            Rental rental2 = new Rental();
-            rental2.Id = 2;
-            rental2.CarId = 3;
-            rental2.CustomerId = 2;
-            rental2.RentDate = DateTime.Now;
-            rental2.ReturnDate = DateTime.Now.AddDays(2);
-            var result2 = rentalManager.Add(rental2);
-            if (result2.Success == true)
+            Rental rental1 = new Rental();
+            rental1.CarId = 3;
+            rental1.CustomerId = 1;
+            rental1.RentDate = DateTime.Now;
+            rental1.ReturnDate = DateTime.Now.AddDays(2);
+            var result = rentalManager.Add(rental1);
+            if (result.Success == true)
             {
-                Console.WriteLine(result2.Message);
+                Console.WriteLine(result.Message);
             }
             else
             {
-                Console.WriteLine(result2.Message);
+                Console.WriteLine(result.Message);
             }
+
+            //Rental rental2 = new Rental();
+            //rental2.Id = 2;
+            //rental2.CarId = 3;
+            //rental2.CustomerId = 2;
+            //rental2.RentDate = DateTime.Now;
+            //rental2.ReturnDate = DateTime.Now.AddDays(2);
+            //var result2 = rentalManager.Add(rental2);
+            //if (result2.Success == true)
+            //{
+            //    Console.WriteLine(result2.Message);
+            //}
+            //else
+            //{
+            //    Console.WriteLine(result2.Message);
+            //}
 
         }
 
