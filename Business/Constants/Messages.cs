@@ -47,9 +47,7 @@ namespace Business.Constants
         public static string RentalsListed = "All rentals listed.";
         public static string RentalDetailsListed = "Rental details listed.";
         public static string AlreadyRented = "The car is already rented by another customer.";
-
-
-
-
+        //Image
+        public static string CarImageLimitExceeded = "You cannot upload more than 5 images for the same car!";
     }
 }
